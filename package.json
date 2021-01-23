@@ -81,7 +81,8 @@
     "start": "node scripts/start.js",
     "build-dev": "node scripts/build.js",
     "build-prod": "GENERATE_SOURCEMAP=false node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "mock": "nodemon mock-server/app.js"
   },
   "eslintConfig": {
     "extends": [
@@ -174,6 +175,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.12.12",
-    "babel-plugin-import": "^1.13.3"
+    "babel-plugin-import": "^1.13.3",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
   }
 }
