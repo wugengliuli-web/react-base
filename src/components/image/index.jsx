@@ -17,7 +17,7 @@ const Image = (props) => {
     }
   }, props);
 
-  // 监控图片加载成功率
+  // ? 监控图片加载成功率
   useMount(() => {
     track.loadImageStart();
   });
