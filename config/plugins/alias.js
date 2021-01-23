@@ -10,6 +10,7 @@ const alias = {
   "@globals": path.resolve(__dirname, "../../src/globals"),
   "@hooks": path.resolve(__dirname, "../../src/hooks"),
   "@components": path.resolve(__dirname, "../../src/components"),
+  "@assets": path.resolve(__dirname, "../../src/assets"),
 };
 
 module.exports = alias;

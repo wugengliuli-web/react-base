@@ -2,6 +2,7 @@ import { TSHelper } from "@utils/ts-helper";
 export const classNamePrefix = TSHelper.createEnum({
   rootClassName: "Swust-Strawberry",
   pageClassName: "Swust-Strawberry-Page",
+  imageClassName: "Swust-Strawberry-Image",
 });
 
 export const backGroundColorType = TSHelper.createEnum({
