@@ -1,9 +1,9 @@
 import React from "react";
-import { track } from "@track";
+// import { track } from "@track";
 import routes from "@/routers";
 import { Router, Route, Switch } from "react-router-dom";
-import { AppHistory } from "@/globals/history";
-import "@style/reset.less";
+import { AppHistory } from "@globals/history";
+import "@styles/reset.less";
 
 class BaseError extends React.Component {
   componentDidMount() {
@@ -15,7 +15,6 @@ class BaseError extends React.Component {
   }
 
   componentDidCatch() {
-    track.reportError();
   }
 
   render() {

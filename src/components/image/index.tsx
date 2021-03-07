@@ -1,10 +1,17 @@
-import React, { useCallback, useMemo } from "react";
+import React, { DependencyList, useMemo } from "react";
 import { isOpenWebpImage } from "@utils/index";
 import { classNamePrefix } from "@globals/root-class-name-prefix";
 import { useMount } from "react-use";
-import { track } from "@track";
+import { track } from "@bridge/index";
 
-const Image = (props) => {
+interface IProps extends DependencyList {
+  isOpenWebp?: boolean;
+  w: number;
+  h: number;
+  src: string;
+}
+
+const Image = (props: IProps) => {
   const { w, h, isOpenWebp = true } = props;
 
   const src = useMemo(() => {
@@ -15,20 +22,20 @@ const Image = (props) => {
       // 如果支持webp， 去cdn 拿webp格式的图片
       return props.src + "~.webp";
     }
-  }, props);
+  }, [props.src, isOpenWebp]);
 
   // ? 监控图片加载成功率
   useMount(() => {
     track.loadImageStart();
   });
 
-  const onload = useCallback(() => {
+  const onload = () => {
     track.loadImageSuccess();
-  });
+  };
 
-  const error = useCallback(() => {
+  const onerror = () => {
     track.loadImageFail();
-  });
+  };
 
   return (
     <div className={classNamePrefix.imageClassName}>
@@ -39,7 +46,7 @@ const Image = (props) => {
         height={h}
         loading="lazy"
         onLoad={onload}
-        onError={error}
+        onError={onerror}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export function useInstance(initialFunction) {
+export function useInstance(initialFunction: Function) {
   const ref = useRef();
   if (!ref.current) {
     ref.current = initialFunction();

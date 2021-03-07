@@ -1,15 +1,23 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { GlobalStore } from "@globals/globalStore";
 import { useInstance } from "@hooks/use-instance";
-import backGroundColor, {
+import {
+  backGroundColor,
   classNamePrefix,
 } from "@globals/root-class-name-prefix";
 import cn from "classnames";
 import "./index.less";
 import { useMount, useUnmount } from "react-use";
-import { track } from "@track";
-const PageContainer = function (props) {
-  const bgColorName = props.bgColorName || backGroundColor.default;
+
+interface IPropsPageContainer {
+  rootClassName: string;
+  displayName: string;
+  bgColor: backGroundColor;
+  children: ReactElement<any, any> | null;
+}
+
+const PageContainer = function (props: IPropsPageContainer) {
+  const bgColor = props.bgColor || backGroundColor.default;
   const displayName = props.displayName || "";
 
   const rootClassName = `${classNamePrefix.rootClassName}-${displayName}`;
@@ -20,15 +28,15 @@ const PageContainer = function (props) {
         [displayName]: displayName,
         [classNamePrefix.pageClassName]: true,
       })}
-      style={{ background: backGroundColor[bgColorName] }}
+      style={{ background: bgColor }}
     >
       {props.children}
     </div>
   );
 };
 
-const buildPage = function (Component) {
-  const { rootClassName = "", displayName = "", bgColorName = "" } = Component;
+const buildPage = function (Component: any) {
+  const { rootClassName = "", displayName = "", bgColor = "" } = Component;
 
   // TODO: 首页loading，等接口
   const BuildPage = () => {
@@ -36,18 +44,18 @@ const buildPage = function (Component) {
 
     // ? 统计用户停留页面时长
     useMount(() => {
-      track.pageEnter();
+      // track.pageEnter();
     });
 
     useUnmount(() => {
-      track.pageLeave();
+      // track.pageLeave();
     });
 
     return (
       <PageContainer
         rootClassName={rootClassName}
         displayName={displayName}
-        bgColorName={bgColorName}
+        bgColor={bgColor}
       >
         <Component globalStore={globalStore} />
       </PageContainer>

@@ -1,26 +1,22 @@
 import { observable, runInAction } from "mobx";
-import { track } from "@track";
-export function createActionAction(asyncAction) {
-  return function (...params) {
+export function createActionAction(
+  asyncAction: (...params: any[]) => Promise<any>
+) {
+  return function (...params: any[]) {
     const extraAction = async function () {
-      // ? 监控请求的成功率和时间
-      track.requestStart();
-
       const extra = extraAction.extra;
       runInAction(() => {
         extra.loading = true;
         extra.err = null;
       });
 
-      let error = null;
+      let error: any = null;
       let data;
 
       try {
         data = await asyncAction(...params);
-        track.requestSuccess();
       } catch (err) {
         error = err;
-        track.requestFail();
       }
 
       runInAction(() => {
